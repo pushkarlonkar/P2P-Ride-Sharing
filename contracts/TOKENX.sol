@@ -1,57 +1,78 @@
-// SPDX-License-Identifier: MIT
-pragma solidity 0.8.0;
+// SPDX-License-Identifier: GPL-3.0
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+pragma solidity >=0.8.0;
 
-contract PriToken is ERC20 {
-    address public owner;
+contract BerriesERC20 {
+    // events
+    event Transfer(address indexed from, address indexed to, uint256 tokens);
+    event Approval(
+        address indexed tokenOwner,
+        address indexed spender,
+        uint256 tokens
+    );
 
-    uint256 private _taxLiquidityPercentage = 4000;  
-    mapping(address => uint256) private _balances;
-    mapping(address => mapping(address => uint256)) private _allowances;
+    // constants
+    string public constant name = "Berries";
+    string public constant symbol = "BERY";
+    uint8 public constant decimals = 18;
 
+    // mappings
+    mapping(address => uint256) balances;
+    mapping(address => mapping(address => uint256)) allowed;
 
-    string private _name = "Simple Token";
-    string private _symbol = "STK";
-    uint8 private _decimals = 18;
+    // states
+    uint256 totalSupply_;
 
-    function name() public view virtual override returns(String memory){
-        return _name;
+    constructor(uint256 total) {
+        totalSupply_ = total;
+        balances[msg.sender] = totalSupply_;
     }
 
-    function symbol() public view virtual override returns (string memory) {
-        return _symbol;
-    }
-    
-    function decimals() public view virtual override returns (uint8) {
-        return _decimals;
-    }
-        
-    function balanceOf(address account) public view virtual override returns (uint256) {
-        return _balances[account];
-    }
-    
-
-    constructor() public ERC20("Pride Token", "PRI") {
-        owner = msg.sender;
-        uint256 supply = 1000000000 ether; // 1 billion supply
-        _mint(msg.sender, supply);
+    // view methods
+    function balanceOf(address tokenOwner) public view returns (uint256) {
+        return balances[tokenOwner];
     }
 
-
-
-    /** 
-     * Requirements:
-     * - only 'owner' can only mint the token .
-     */
-    
-    function mint(address to, uint256 amount) external {
-        require(msg.sender == owner, "Minting is allowed only by owner.");
-        _mint(to, amount);
+    function allowanceOf(address owner, address delegate)
+        public
+        view
+        returns (uint256)
+    {
+        return allowed[owner][delegate];
     }
 
-    function burn(uint256 amount) external {
-        _burn(msg.sender, amount);
+    // utility methods
+    function transfer(address receiver, uint256 numTokens)
+        public
+        returns (bool)
+    {
+        require(numTokens <= balances[msg.sender]);
+        balances[msg.sender] -= numTokens;
+        balances[receiver] += numTokens;
+        emit Transfer(msg.sender, receiver, numTokens);
+        return true;
     }
 
+    function approve(address delegate, uint256 numTokens)
+        public
+        returns (bool)
+    {
+        allowed[msg.sender][delegate] = numTokens;
+        emit Approval(msg.sender, delegate, numTokens);
+        return true;
+    }
+
+    function transferFrom(
+        address owner,
+        address buyer,
+        uint256 numTokens
+    ) public returns (bool) {
+        require(numTokens <= balances[owner]);
+        require(numTokens <= allowed[owner][msg.sender]);
+        balances[owner] -= numTokens;
+        allowed[owner][msg.sender] -= numTokens;
+        balances[buyer] += numTokens;
+        emit Transfer(owner, buyer, numTokens);
+        return true;
+    }
 }

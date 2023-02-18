@@ -8,32 +8,29 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  */
 
 contract Customer is Ownable {
-    struct USERS{
-        string fullname ;
+    struct USERS {
+        string fullname;
         string email;
         string dob;
         string govtID;
         string picture;
-        address wallet ;
+        address wallet;
     }
 
-    mapping(address=>USERS) private customers;
+    mapping(address => USERS) private customers;
 
-    function createCustomer(address _walletAddr,USERS memory _customer) 
-        public 
-        onlyOwner 
-        returns(address)
+    function createCustomer(address _walletAddr, USERS memory _customer)
+        public
+        onlyOwner
+        returns (address)
     {
-        USERS memory customer ;
-        customer = _customer;
-        customers[_walletAddr] = customer;
-
+        customers[_walletAddr] = _customer;
         return _walletAddr;
     }
 
     function updateCustomer(address _walletAddr)
-        public 
-        onlyOwner 
+        public
+        onlyOwner
         returns (address)
     {
         USERS memory customer;
@@ -42,7 +39,7 @@ contract Customer is Ownable {
         customers[_walletAddr] = customer;
 
         return _walletAddr;
-    }   
+    }
 
     function getCustomer(address _walletAddr)
         public
