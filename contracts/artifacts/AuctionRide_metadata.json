@@ -1,0 +1,695 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "tokenOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "spender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "tokens",
+						"type": "uint256"
+					}
+				],
+				"name": "Approval",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "tokens",
+						"type": "uint256"
+					}
+				],
+				"name": "Transfer",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "delegate",
+						"type": "address"
+					}
+				],
+				"name": "allowanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "delegate",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numTokens",
+						"type": "uint256"
+					}
+				],
+				"name": "approve",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "tokenOwner",
+						"type": "address"
+					}
+				],
+				"name": "balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "rideCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "bidamt",
+						"type": "uint256"
+					}
+				],
+				"name": "bid",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "decimals",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "rideIds",
+						"type": "uint256[]"
+					}
+				],
+				"name": "getAllRides",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "latestHighestBid",
+								"type": "uint256"
+							},
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "customer",
+										"type": "address"
+									},
+									{
+										"internalType": "address",
+										"name": "driver",
+										"type": "address"
+									}
+								],
+								"internalType": "struct AuctionRide.USERS",
+								"name": "users",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "bool",
+										"name": "isCancelled",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isComplete",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isConfirmed",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isAuctionGoingOn",
+										"type": "bool"
+									},
+									{
+										"internalType": "enum AuctionRide.appUser",
+										"name": "wasCancelledBy",
+										"type": "uint8"
+									}
+								],
+								"internalType": "struct AuctionRide.STATUS",
+								"name": "status",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "pickup",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "destination",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "distance",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "price",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct AuctionRide.RIDE_DETAILS",
+								"name": "ride",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "vehicle_no",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "RC",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "vehicle_images",
+										"type": "string"
+									},
+									{
+										"internalType": "enum Vehicle.VEHICLE_TYPE",
+										"name": "vehicle_type",
+										"type": "uint8"
+									},
+									{
+										"internalType": "address",
+										"name": "driver",
+										"type": "address"
+									}
+								],
+								"internalType": "struct Vehicle.VEHICLE_INFO",
+								"name": "vehicle",
+								"type": "tuple"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeOfPosting",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "secondsUntilAuctionEnds",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct AuctionRide.RIDE[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_rideId",
+						"type": "uint256"
+					}
+				],
+				"name": "getRide",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "latestHighestBid",
+								"type": "uint256"
+							},
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "customer",
+										"type": "address"
+									},
+									{
+										"internalType": "address",
+										"name": "driver",
+										"type": "address"
+									}
+								],
+								"internalType": "struct AuctionRide.USERS",
+								"name": "users",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "bool",
+										"name": "isCancelled",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isComplete",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isConfirmed",
+										"type": "bool"
+									},
+									{
+										"internalType": "bool",
+										"name": "isAuctionGoingOn",
+										"type": "bool"
+									},
+									{
+										"internalType": "enum AuctionRide.appUser",
+										"name": "wasCancelledBy",
+										"type": "uint8"
+									}
+								],
+								"internalType": "struct AuctionRide.STATUS",
+								"name": "status",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "pickup",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "destination",
+										"type": "string"
+									},
+									{
+										"internalType": "uint256",
+										"name": "distance",
+										"type": "uint256"
+									},
+									{
+										"internalType": "uint256",
+										"name": "price",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct AuctionRide.RIDE_DETAILS",
+								"name": "ride",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "vehicle_no",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "RC",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "vehicle_images",
+										"type": "string"
+									},
+									{
+										"internalType": "enum Vehicle.VEHICLE_TYPE",
+										"name": "vehicle_type",
+										"type": "uint8"
+									},
+									{
+										"internalType": "address",
+										"name": "driver",
+										"type": "address"
+									}
+								],
+								"internalType": "struct Vehicle.VEHICLE_INFO",
+								"name": "vehicle",
+								"type": "tuple"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeOfPosting",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "secondsUntilAuctionEnds",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct AuctionRide.RIDE",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "name",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_secondsUntilAuctionEnds",
+						"type": "uint256"
+					}
+				],
+				"name": "publishRide",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "rideCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_seconds",
+						"type": "uint256"
+					}
+				],
+				"name": "startAuction",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "symbol",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "receiver",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numTokens",
+						"type": "uint256"
+					}
+				],
+				"name": "transfer",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numTokens",
+						"type": "uint256"
+					}
+				],
+				"name": "transferFrom",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/auctionride.sol": "AuctionRide"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0xa94b34880e3c1b0b931662cb1c09e5dfa6662f31cba80e07c5ee71cd135c9673",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://40fb1b5102468f783961d0af743f91b9980cf66b50d1d12009f6bb1869cea4d2",
+				"dweb:/ipfs/QmYqEbJML4jB1GHbzD4cUZDtJg5wVwNm3vDJq1GbyDus8y"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+			]
+		},
+		"contracts/TOKENX.sol": {
+			"keccak256": "0xfd75fd11201a52c7f98944ab763669da3496a8e1bd1b33de4e21a7f807224448",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://317b503c1b5a9c67db3b5cfbe1580b0df0f262ea5ab821713236af8ccd6a197c",
+				"dweb:/ipfs/QmRFZ5cmvqjByoUbAE2NDtyKiZuTbCKfUQQfyH7JbHVFiR"
+			]
+		},
+		"contracts/Vehicle.sol": {
+			"keccak256": "0x115b0276f90284f7f7db89bb8d15b88388c7a37216d15a4cd274c3a15f222c1c",
+			"urls": [
+				"bzz-raw://6e38c42f30fdd4176d72a256592edaf106abba0c8b786df8907c31a6e946ba3f",
+				"dweb:/ipfs/QmUDHrygsKrLDkNhe5da68R9esXFKm6Q4QQRYtF2dypJpi"
+			]
+		},
+		"contracts/auctionride.sol": {
+			"keccak256": "0xbd28723164ee43a9489d97b722154a804a7a92036fcd871b039943c86cd155d9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d3c7008bb3c4f71c7c4dd860c460c267ba4ed5c9934678a598051cb78298b0d2",
+				"dweb:/ipfs/QmcTrZKzqW98KU5KEzF23oy4masLFE96uqSp1usDfSHJ7b"
+			]
+		}
+	},
+	"version": 1
+}

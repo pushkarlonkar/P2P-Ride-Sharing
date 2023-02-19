@@ -28,16 +28,12 @@ contract Customer is Ownable {
         return _walletAddr;
     }
 
-    function updateCustomer(address _walletAddr)
+    function updateCustomer(address _walletAddr, USERS memory customer)
         public
         onlyOwner
         returns (address)
     {
-        USERS memory customer;
-
-        customer = _customer;
         customers[_walletAddr] = customer;
-
         return _walletAddr;
     }
 
