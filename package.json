@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.1",
+    "solidity-trigonometry": "https://github.com/mds1/solidity-trigonometry.git"
+  }
+}
